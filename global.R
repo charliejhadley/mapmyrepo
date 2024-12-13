@@ -9,3 +9,6 @@ library(sf)
 library(openssl)
 library(base64enc)
 library(DT)
+library(furrr)
+
+plan(multisession)
