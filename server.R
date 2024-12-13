@@ -1,18 +1,3 @@
-library(shiny)
-library(httr)
-library(jsonlite)
-library(tibble)
-library(dplyr)
-library(ggplot2)
-library(rnaturalearth)
-library(rnaturalearthdata)
-library(sf)
-library(openssl)
-library(readr)
-library(purrr)
-library(base64enc)
-library(DT)
-
 # Define server logic
 shinyServer(function(input, output, session){
   
@@ -65,8 +50,8 @@ shinyServer(function(input, output, session){
   base_url <- "https://stats.figshare.com/lboro/breakdown/total"
   
   # Define your username and password (replace with actual values)
-  username <- Sys.getenv("username")
-  password <- Sys.getenv("password")
+  username <- Sys.getenv("figshare_username")
+  password <- Sys.getenv("figshare_password")
   
   # Combine the username and password and encode them
   credentials <- paste(username, password, sep = ":")
@@ -244,7 +229,7 @@ shinyServer(function(input, output, session){
   
     
     # Make API request
-    response <- GET(url, add_headers(Authorization = paste("token", Sys.getenv("api_token"))))
+    response <- GET(url, add_headers(Authorization = paste("token", Sys.getenv("figshare_api_token"))))
     
     # Initialize combined data frame for citations
     combined_df <- data.frame(Citation = character(), URL = character(), stringsAsFactors = FALSE)
@@ -265,7 +250,7 @@ shinyServer(function(input, output, session){
         full_url_citation <- paste0(endpoint2, article_id)
         
         # Get the article citation data
-        citation_response <- GET(full_url_citation, add_headers(Authorization = paste("token", Sys.getenv("api_token"))))
+        citation_response <- GET(full_url_citation, add_headers(Authorization = paste("token", Sys.getenv("figshare_api_token"))))
         
         # Check if the citation request was successful
         if (status_code(citation_response) == 200) {

@@ -1,8 +1,3 @@
-library(shiny)
-library(shinycssloaders)
-library(shinythemes)
-library(lubridate)
-
 # Define UI for the app
 ui <- navbarPage(
   "Map My Repository",
